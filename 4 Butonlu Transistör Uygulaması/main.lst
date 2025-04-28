@@ -1,0 +1,267 @@
+CCS PCM C Compiler, Version 5.015, 5967               28-Nis-25 18:13
+
+               Filename:   C:\Users\MONSTER\Desktop\4 Butonlu Transistör Uygulamasý\main.lst
+
+               ROM used:   177 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           8 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include <16f877.h> 
+.................... //////////// Standard Header file for the PIC16F877 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #use delay(clock=4000000)  
+0004:  MOVLW  23
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETURN
+....................  
+.................... void main() 
+0019:  MOVF   03,W
+001A:  ANDLW  1F
+001B:  MOVWF  03
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  BCF    03.7
+.................... { 
+....................    set_tris_a(0x0f); // ilk 4 bit giriþ yapýlýr  
+0022:  MOVLW  0F
+0023:  MOVWF  05
+....................    output_a(0x00); 
+0024:  CLRF   05
+0025:  BCF    03.5
+0026:  CLRF   05
+....................     
+....................    set_tris_d(0x00); //Tüm PORTD çýkýþ 
+0027:  MOVLW  00
+0028:  BSF    03.5
+0029:  MOVWF  08
+....................    output_d(0x00); 
+002A:  CLRF   08
+002B:  BCF    03.5
+002C:  CLRF   08
+....................     
+....................    int i; 
+....................  
+....................    while(TRUE) 
+....................    { 
+....................       if(input(pin_a0)==1) 
+002D:  BSF    03.5
+002E:  BSF    05.0
+002F:  BCF    03.5
+0030:  BTFSS  05.0
+0031:  GOTO   04E
+....................       { 
+....................          for(i=0;i<1;i++) 
+0032:  CLRF   21
+0033:  MOVF   21,F
+0034:  BTFSS  03.2
+0035:  GOTO   04E
+....................          { 
+....................             output_high(pin_d7); 
+0036:  BSF    03.5
+0037:  BCF    08.7
+0038:  BCF    03.5
+0039:  BSF    08.7
+....................             delay_ms(1000); 
+003A:  MOVLW  04
+003B:  MOVWF  22
+003C:  MOVLW  FA
+003D:  MOVWF  23
+003E:  CALL   004
+003F:  DECFSZ 22,F
+0040:  GOTO   03C
+....................             output_low(pin_d7); 
+0041:  BSF    03.5
+0042:  BCF    08.7
+0043:  BCF    03.5
+0044:  BCF    08.7
+....................             delay_ms(1000); 
+0045:  MOVLW  04
+0046:  MOVWF  22
+0047:  MOVLW  FA
+0048:  MOVWF  23
+0049:  CALL   004
+004A:  DECFSZ 22,F
+004B:  GOTO   047
+004C:  INCF   21,F
+004D:  GOTO   033
+....................          } 
+....................       } 
+....................       i=0; 
+004E:  CLRF   21
+....................       if(input(pin_a1)==1) 
+004F:  BSF    03.5
+0050:  BSF    05.1
+0051:  BCF    03.5
+0052:  BTFSS  05.1
+0053:  GOTO   071
+....................       { 
+....................          for(i=0;i<2;i++) 
+0054:  CLRF   21
+0055:  MOVF   21,W
+0056:  SUBLW  01
+0057:  BTFSS  03.0
+0058:  GOTO   071
+....................          { 
+....................             output_high(pin_d6); 
+0059:  BSF    03.5
+005A:  BCF    08.6
+005B:  BCF    03.5
+005C:  BSF    08.6
+....................             delay_ms(750); 
+005D:  MOVLW  03
+005E:  MOVWF  22
+005F:  MOVLW  FA
+0060:  MOVWF  23
+0061:  CALL   004
+0062:  DECFSZ 22,F
+0063:  GOTO   05F
+....................             output_low(pin_d6); 
+0064:  BSF    03.5
+0065:  BCF    08.6
+0066:  BCF    03.5
+0067:  BCF    08.6
+....................             delay_ms(750); 
+0068:  MOVLW  03
+0069:  MOVWF  22
+006A:  MOVLW  FA
+006B:  MOVWF  23
+006C:  CALL   004
+006D:  DECFSZ 22,F
+006E:  GOTO   06A
+006F:  INCF   21,F
+0070:  GOTO   055
+....................          } 
+....................       } 
+....................       i=0; 
+0071:  CLRF   21
+....................       if(input(pin_a2)==1) 
+0072:  BSF    03.5
+0073:  BSF    05.2
+0074:  BCF    03.5
+0075:  BTFSS  05.2
+0076:  GOTO   094
+....................       { 
+....................          for(i=0;i<3;i++) 
+0077:  CLRF   21
+0078:  MOVF   21,W
+0079:  SUBLW  02
+007A:  BTFSS  03.0
+007B:  GOTO   094
+....................          { 
+....................             output_high(pin_d5); 
+007C:  BSF    03.5
+007D:  BCF    08.5
+007E:  BCF    03.5
+007F:  BSF    08.5
+....................             delay_ms(500); 
+0080:  MOVLW  02
+0081:  MOVWF  22
+0082:  MOVLW  FA
+0083:  MOVWF  23
+0084:  CALL   004
+0085:  DECFSZ 22,F
+0086:  GOTO   082
+....................             output_low(pin_d5); 
+0087:  BSF    03.5
+0088:  BCF    08.5
+0089:  BCF    03.5
+008A:  BCF    08.5
+....................             delay_ms(500); 
+008B:  MOVLW  02
+008C:  MOVWF  22
+008D:  MOVLW  FA
+008E:  MOVWF  23
+008F:  CALL   004
+0090:  DECFSZ 22,F
+0091:  GOTO   08D
+0092:  INCF   21,F
+0093:  GOTO   078
+....................          } 
+....................       } 
+....................       i=0; 
+0094:  CLRF   21
+....................       if(input(pin_a3)==1) 
+0095:  BSF    03.5
+0096:  BSF    05.3
+0097:  BCF    03.5
+0098:  BTFSS  05.3
+0099:  GOTO   0AF
+....................       { 
+....................          for(i=0;i<4;i++) 
+009A:  CLRF   21
+009B:  MOVF   21,W
+009C:  SUBLW  03
+009D:  BTFSS  03.0
+009E:  GOTO   0AF
+....................          { 
+....................             output_high(pin_d4); 
+009F:  BSF    03.5
+00A0:  BCF    08.4
+00A1:  BCF    03.5
+00A2:  BSF    08.4
+....................             delay_ms(250); 
+00A3:  MOVLW  FA
+00A4:  MOVWF  23
+00A5:  CALL   004
+....................             output_low(pin_d4); 
+00A6:  BSF    03.5
+00A7:  BCF    08.4
+00A8:  BCF    03.5
+00A9:  BCF    08.4
+....................             delay_ms(250); 
+00AA:  MOVLW  FA
+00AB:  MOVWF  23
+00AC:  CALL   004
+00AD:  INCF   21,F
+00AE:  GOTO   09B
+....................          } 
+....................       } 
+00AF:  GOTO   02D
+....................    } 
+....................  
+.................... } 
+00B0:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F73   RC NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
